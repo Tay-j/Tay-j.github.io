@@ -1,7 +1,617 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Tay | Computational Molecular Evolution Researcher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --timeline-color: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: var(--light-color);
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        section {
+            padding: 60px 0;
+            background-color: white;
+        }
+        
+        section:nth-child(even) {
+            background-color: #f5f7fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* Timeline Style */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--timeline-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .timeline-content .date {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .timeline-content p {
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content ul {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--timeline-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: -10px;
+            background-color: white;
+            border: 4px solid var(--timeline-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        /* Publications Style */
+        .publications-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .publication-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .publication-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .publication-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .publication-authors {
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .publication-journal {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+        }
+        
+        .publication-date {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .publication-links a {
+            color: var(--secondary-color);
+            margin-right: 15px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .publication-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .skills-category {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skills-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+        }
+        
+        .skills-list {
+            list-style-type: none;
+        }
+        
+        .skills-list li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .skills-list li::before {
+            content: "•";
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::before,
+            .timeline-item:nth-child(even)::before {
+                left: 21px;
+            }
+            
+            .skills-category {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
 <body>
-<h1>John H Tay</h1>
-<p>John completed a Bachelor of Science (Genetics), a Master of Science (Bioinformatics; with distinction), and was a Research Assistant for 1.5 years in the Duchene lab. He is currently studying a Doctor of Philosophy (Medicine, Dentistry, & Health Sciences) at the University of Melbourne and is a visiting researcher at Institut Pasteur. He is passionate about computational molecular evolutionary methods, molecular clocks, and detecting rate heterogeneity/heterotachy.</p>
+    <header>
+        <div class="header-content">
+            <img src="https://via.placeholder.com/150" alt="John Tay" class="profile-pic">
+            <h1>John Tay</h1>
+            <div class="subtitle">PhD Candidate | Computational Molecular Evolution Researcher</div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>john@taysnet.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>(+61) 410096484</span>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/john-tay-unimelb/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Tay-i" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://scholar.google.com.au/citations?hl=en&user=tj_0skYAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About</h2>
+            </div>
+            <div class="about-content">
+                <p>John completed a Bachelor of Science (Genetics), a Master of Science (Bioinformatics; with distinction), and was a Research Assistant for 1.5 years in the Duchene lab. He is currently studying a Doctor of Philosophy (Medicine, Dentistry, & Health Sciences) at the University of Melbourne and is a visiting researcher at Institut Pasteur. He is passionate about computational molecular evolutionary methods, molecular clocks, and detecting rate heterogeneity/heterotachy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <div class="section-title">
+                <h2>Education</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Jul 2024 - June 2027</span>
+                        <h3>Doctor of Philosophy (Medicine, Dentistry, and Health Sciences)</h3>
+                        <p>University of Melbourne</p>
+                        <ul>
+                            <li>Visiting Researcher at Institut Pasteur, Paris (Ongoing)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Jan 2020 - Dec 2022</span>
+                        <h3>Master of Science (Bioinformatics with Distinction)</h3>
+                        <p>University of Melbourne</p>
+                        <ul>
+                            <li>Melbourne Science Ambassador</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Jan 2017 - Dec 2019</span>
+                        <h3>Bachelor of Science (Genetics)</h3>
+                        <p>University of Melbourne</p>
+                        <ul>
+                            <li>Leaders in Communities Award</li>
+                            <li>University of British Columbia (UBC) – Exchange (2018 Winter Term), awarded Global Mobility (U21) Scholarship</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Dec 2022 - June 2024</span>
+                        <h3>Computational Biologist, Duchene Lab</h3>
+                        <p>Peter Doherty Institute for Infection and Immunity, Melbourne VIC & Institut Pasteur, Paris</p>
+                        <ul>
+                            <li>Developing BEAST packages in Java</li>
+                            <li>Tested clock models in SARS-CoV2 variants of concern simulated genomes to evaluate prior sensitivity</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Oct 2020 - Nov 2022</span>
+                        <h3>Master of Bioinformatics Project, Duchene Lab</h3>
+                        <p>Peter Doherty Institute for Infection and Immunity, Melbourne VIC</p>
+                        <ul>
+                            <li>Investigating molecular evolution in SARS-CoV-2 to elucidate evolutionary behaviour</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Jul 2021 - Dec 2021</span>
+                        <h3>Visiting Masters Student, Neave Lab</h3>
+                        <p>CSIRO Australian Centre for Disease Preparedness, Geelong VIC</p>
+                        <ul>
+                            <li>Explored molecular clocks utilising Bayesian methods in avian influenza virus sequences</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Jan 2020 - May 2020, Aug 2020 - Sep 2020</span>
+                        <h3>Master of Bioinformatics Project and Bioinformatics Research Assistant, Bahio Lab</h3>
+                        <p>Walter and Eliza Hall Institute (WEHI), Melbourne VIC</p>
+                        <ul>
+                            <li>Built a genomic database for pathogenic genetic variants in humans with a focus on repeat expansions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Jun 2019 - Dec 2019</span>
+                        <h3>Undergraduate Research Opportunity Program (UROP) Scholar, Bahio Lab</h3>
+                        <p>Walter and Eliza Hall Institute (WEHI), Melbourne VIC</p>
+                        <ul>
+                            <li>Applied bioinformatic techniques on clinical genomic data of patients with undiagnosed disorders to identify potential pathogenic repeat expansions (STRs)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="date">Aug 2018 - Nov 2018, Mar 2019 - Jun 2019</span>
+                        <h3>Lab Assistant (Volunteer) and Research Project, Specifly Lab</h3>
+                        <p>University of Melbourne Faculty of Science, Melbourne VIC</p>
+                        <ul>
+                            <li>Explored mammalian phylogenetics, and analysed drosophila phylogenetics to resolve a copy number variation in Cytochrome P450 subfamily (Cyp12a5)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications">
+        <div class="container">
+            <div class="section-title">
+                <h2>Publications</h2>
+            </div>
+            <div class="publications-list">
+                <div class="publication-item">
+                    <span class="publication-date">November 6 2024</span>
+                    <h3>Assessing the effect of model specification and prior sensitivity on Bayesian tests of temporal signal</h3>
+                    <div class="publication-authors">Tay JH, Kocher A, Duchene S</div>
+                    <div class="publication-journal">PLOS Computational Biology 20(11): e1012371</div>
+                    <div class="publication-links">
+                        <a href="https://doi.org/10.1371/journal.pcbi.1012371" target="_blank"><i class="fas fa-external-link-alt"></i> View Publication</a>
+                    </div>
+                </div>
+                <div class="publication-item">
+                    <span class="publication-date">March 6 2024</span>
+                    <h3>Molecular epidemiology of the HIV-1 epidemic in Fiji</h3>
+                    <div class="publication-authors">A. Sudhakar, D. Wilson, R. Devi et al.</div>
+                    <div class="publication-journal">npj Viruses 2, 8, March 2024</div>
+                    <div class="publication-links">
+                        <a href="https://doi.org/10.1038/s44298-024-00019-3" target="_blank"><i class="fas fa-external-link-alt"></i> View Publication</a>
+                    </div>
+                </div>
+                <div class="publication-item">
+                    <span class="publication-date">September 21 2023</span>
+                    <h3>Detecting Episodic Evolution through Bayesian Inference of Molecular Clock Models</h3>
+                    <div class="publication-authors">J. H. Tay, G. Baele, S. Duchene</div>
+                    <div class="publication-journal">Molecular Biology and Evolution, Volume 40, Issue 10, October 2023, msad212</div>
+                    <div class="publication-links">
+                        <a href="https://doi.org/10.1093/molbev/msad212" target="_blank"><i class="fas fa-external-link-alt"></i> View Publication</a>
+                    </div>
+                </div>
+                <div class="publication-item">
+                    <span class="publication-date">January 17 2022</span>
+                    <h3>The emergence of SARS-CoV-2 variants of concern is driven by acceleration of the substitution rate</h3>
+                    <div class="publication-authors">J. H. Tay, A. F. Porter, W. Wirth, and S. Duchene</div>
+                    <div class="publication-journal">Molecular Biology and Evolution, Volume 39, Issue 2, February 2022, msac013</div>
+                    <div class="publication-links">
+                        <a href="https://doi.org/10.1093/molbev/msac013" target="_blank"><i class="fas fa-external-link-alt"></i> View Publication</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Skills</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skills-category">
+                    <h3>Programming & Markup</h3>
+                    <ul class="skills-list">
+                        <li>HTML, CSS, JavaScript</li>
+                        <li>Python, Bash/UNIX Shell</li>
+                        <li>R, Markdown, SQL (MySQL)</li>
+                        <li>Java, LaTeX</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h3>Bioinformatics Tools</h3>
+                    <ul class="skills-list">
+                        <li>BEAST (Bayesian Evolutionary Analysis)</li>
+                        <li>IQTREE2 (Phylogenetic methods)</li>
+                        <li>Artemis (Gene annotation)</li>
+                        <li>ClustalX, MAFFT (Sequence alignment)</li>
+                        <li>IGV (Human genome visualization)</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h3>Computing & Databases</h3>
+                    <ul class="skills-list">
+                        <li>High-performance computing clusters (WEHI Milton HPC, Unimelb Spartan, Pasteur Maestro)</li>
+                        <li>Torque and Slurm job scheduling</li>
+                        <li>NCBI-Genbank, EMBL-ENA, OMIM, GISAID</li>
+                        <li>Docker/Singularity containerization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 John Tay. All rights reserved.</p>
+            <p>Last updated: April 2025</p>
+        </div>
+    </footer>
 </body>
 </html>
